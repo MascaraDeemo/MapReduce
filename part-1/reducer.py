@@ -26,7 +26,7 @@ def reducer():
         if current_category != category:
 
             if current_category != "":
-                output = current_category + ": " + len(video_id_dict[current_category])/country_total
+                output = "{}: {}".format(current_category,round(len(video_id_dict[current_category])/country_total,2))
                 print(output.strip())
 
             current_category = category
@@ -35,10 +35,10 @@ def reducer():
         video_id_set = video_id_dict.get(current_category, set())
         video_id_set.add(video_id)
         video_id_dict[current_category] = video_id_set
-        country_total += country_sum
+        country_total += int(country_sum)
 
     if current_category != "":
-        output = current_category + ": " + len(video_id_dict[current_category])/country_total
+        output = "{}: {}".format(current_category,round(len(video_id_dict[current_category])/country_total,2))
         print(output.strip())
 
 
