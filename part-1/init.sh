@@ -7,7 +7,7 @@ if [ $# -ne 2 ]; then
 fi
 
 hadoop jar /usr/lib/hadoop/hadoop-streaming-2.8.5-amzn-1.jar \
--D mapreduce.job.reduces=3 \
+-D mapreduce.job.maps=3 \
 -D mapreduce.job.name='part 1' \
 -file mapper.py \
 -mapper mapper.py \
