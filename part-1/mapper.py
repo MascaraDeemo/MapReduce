@@ -5,11 +5,13 @@ import sys
 
 def mapper():
     """ This mapper select tags and return the tag-owner information.
-    Input format: video_id,trending_date,category_id,category,publish_time,views,likes,dislikes,comment_count,ratings_disable,video_error_or_removed,country
+    Input format: video_id,trending_date,category_id,category,publish_time,views,likes,dislikes,
+    comment_count,ratings_disable,video_error_or_removed,country
     Output format: category,video_id,country
     """
     for line in sys.stdin:
         # Clean input and split it
+
         line = line.strip()
         parts = line.split(",")
 
@@ -19,8 +21,10 @@ def mapper():
 
         video_id = parts[0].strip()
         category = parts[3].strip()
+        if category == 'category':
+            continue
         country = parts[11].strip()
-        print("{},{},{}".format(category, video_id, country))
+        print("{cat}\t{meta}".format(cat=category, meta='%s,%s' % (video_id, country)))
 
 
 if __name__ == "__main__":
