@@ -48,8 +48,8 @@ def mapToFormat(line):
 if __name__ == "main":
     sc = SparkContext(appName='part-2')
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", help="Input path", default='~/comp5349/lab_commons/week5/')
-    parser.add_argument("--output", help="Output path", default='sparkResult')
+    parser.add_argument("--input", help="Input path", default='~/')
+    parser.add_argument("--output", help="Output path", default='~/')
     args = parser.parse_args()
     input_path = args.input
     output_path = args.output
