@@ -45,7 +45,7 @@ def mapToFormat(line):
     return key, value
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     sc = SparkContext(appName='part-2')
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", help="Input path", default='~/')
