@@ -1,11 +1,5 @@
-import findspark
-findspark.init()
 from pyspark import SparkContext
-
-sc = SparkContext(appName='part-2')
-
-csv = sc.textFile('AllVideos_short.csv')
-output_path = 'output'
+import argparse
 
 
 def mapper(line):
@@ -51,13 +45,21 @@ def mapToFormat(line):
     return key, value
 
 
-csvNoHead = csv.zipWithIndex().filter(lambda tup: tup[1] > 0).keys()
-after_map = csvNoHead.map(mapper)
-after_calculate = after_map.groupByKey().mapValues(calculate_difference)
-sortedByResult = after_calculate.sortBy(lambda a: a[1], 0)
-answer = sortedByResult.map(mapToFormat)
-output = answer.collect()[:10]
-output1 = sc.parallelize(output)
-# output1.saveAsTextFile(output_path)
-sc.stop()
+if __name__ == "main":
+    sc = SparkContext(appName='part-2')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", help="Input path", default='~/comp5349/lab_commons/week5/')
+    parser.add_argument("--output", help="Output path", default='sparkResult')
+    args = parser.parse_args()
+    input_path = args.input
+    output_path = args.output
+    csv = sc.textFile(input_path + 'AllVideos_short.csv')
+    csvNoHead = csv.zipWithIndex().filter(lambda tup: tup[1] > 0).keys()
+    after_map = csvNoHead.map(mapper)
+    after_calculate = after_map.groupByKey().mapValues(calculate_difference)
+    sortedByResult = after_calculate.sortBy(lambda a: a[1], 0)
+    answer = sortedByResult.map(mapToFormat)
+    output = answer.collect()[:10]
+    output1 = sc.parallelize(output)
+    output1.saveAsTextFile(output_path)
 
