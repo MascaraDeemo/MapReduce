@@ -13,7 +13,7 @@ def read_map_output(file):
 
 
 def combiner():
-    """ This reducer reads in category, video_id and country_count returns the
+    """ This combiner reads in category, video_id and country_count returns the
     total sum of video_id per category and use country_count to divide it in order to get the average
     Input format: category,video_id,country
     Output format: category,(video_id, country_sum_for_videoId)
